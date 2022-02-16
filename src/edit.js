@@ -13,13 +13,15 @@ function Edit() {
   const [title, setTitle] = useState("");
   const [category, setCategory] = useState("");
   const [no, setNo] = useState("");
+  const [url, setUrl] = useState("");
   const { onEdit, onRemove } = useContext(VideoDispatchContext);
   const videoList = useContext(VideoContext);
 
-  const handleSubmit = (no) => {
+  const handleSubmit = (no,url) => {
     if(window.confirm( "수정하시겠습니까?" )){
       setNo(no);  
-      onEdit(no,title,category);
+      setUrl(url);  
+      onEdit(no,title,category,url);
      };
   };
   const handleRemove = (no) => {
@@ -40,14 +42,14 @@ function Edit() {
         <Card sx={{ maxWidth: 350 }}>
         <ReactPlayer url={val.url} controls={true} width="100%"/>
         <CardContent>
-          <Input defaultValue={val.title} onChange={(e)=>{setTitle(e.target.value)}} fontSize="28px"/>
-          <Input defaultValue={val.category} onChange={(e)=>{setCategory(e.target.value)}}/>
+          <Input placeholder={"수정할 제목 입력"} defaultValue={title} onChange={(e)=>{setTitle(e.target.value)}} />
+          <Input placeholder={"수정할 카테고리 입력"} defaultValue={category} onChange={(e)=>{setCategory(e.target.value)}}/>
         </CardContent>
          <Tooltip title="Delete">
            <IconButton onClick={(e)=>{handleRemove(val.no)}}><DeleteIcon /></IconButton>
            </Tooltip>
            <Tooltip title="edit">
-              <Button onClick={(e)=>{handleSubmit(val.no)}}>수정완료</Button>
+              <Button onClick={(e)=>{handleSubmit(val.no,val.url)}}>수정완료</Button>
           </Tooltip>
         </Card>
         </div>

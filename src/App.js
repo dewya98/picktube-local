@@ -75,13 +75,14 @@ function App() {
       dataNo.current += 1;
     };
 
-  const onEdit=(no,title,category)=>{
+  const onEdit=(no,title,category,url)=>{
     dispatch({
       type:"EDIT",
       data: { 
         no:no,
         title,
         category,
+        url,
       },
     });
   };
